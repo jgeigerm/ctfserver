@@ -38,7 +38,7 @@ Options that are not defined in ctfspec.h will be set to defaults
 
 Available Functions
 -------------------
-**bool ctfserver(void (*handler)(void *))<**br>
+**bool ctfserver(void (*handler)(void *))**
 
 - Takes a function name to handle connecitons with. This is what users connecting to the server will be able to interact with. Returns false if there was an error.
 
