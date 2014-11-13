@@ -1,6 +1,6 @@
 #include "ctfserver.h"
 
-bool ctfserver(void (*handler)(sock)) {
+bool ctfserver(void (*handler)(void *)) {
     sock rsock, lsock;
     sockaddr_in lsin, rsin;
     memset(&lsin, 0, sizeof(sockaddr_in));
@@ -37,12 +37,12 @@ bool ctfserver(void (*handler)(sock)) {
         if ((rsock = accept(lsock, (sockaddr *)&rsin, &rsin_len)) != -1){
 #ifdef CTF_THREADS
             pthread_mutex_lock(&tmutex);
-            pthread_create(&pid, NULL, &handler, (void *)&rsock);
+            pthread_create(&pid, NULL, (void *)handler, (void *)&rsock);
             pthread_mutex_unlock(&tmutex);
 #else
             pid_t pid = fork();
             if (!pid){
-                handler(rsock);
+                handler((void *)&rsock);
                 close(rsock);
                 return true;
             }else

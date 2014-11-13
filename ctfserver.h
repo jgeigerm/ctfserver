@@ -16,12 +16,12 @@ typedef int sock;
 typedef struct sockaddr_in sockaddr_in;
 typedef struct sockaddr sockaddr;
 
+#ifdef CTF_SPEC
+#include "ctfspec.h"
+#endif
 #ifdef CTF_THREADS
 #include <pthread.h>
 pthread_mutex_t tmutex;
-bool ctfserver(void (*handler)(void *));
-#else
-bool ctfserver(void (*handler)(sock));
 #endif
 #ifndef BUFSIZE
 #define BUFSIZE 1028
@@ -33,7 +33,7 @@ bool ctfserver(void (*handler)(sock));
 #define MAX_CONNECTIONS 30
 #endif
 
-
+bool ctfserver(void (*handler)(void *));
 bool rputs(sock rsock, char *fmt, ...);
 bool rgets(sock rsock, char *rBuf);
 bool send_flag(sock rsock, char *msg);
