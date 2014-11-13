@@ -34,7 +34,7 @@ pthread_mutex_t tmutex;
 #endif
 
 bool ctfserver(void (*handler)(void *));
-bool rputs(sock rsock, char *fmt, ...);
+bool rprintf(sock rsock, char *fmt, ...);
 bool rgets(sock rsock, char *rBuf);
 bool send_flag(sock rsock, char *msg);
 

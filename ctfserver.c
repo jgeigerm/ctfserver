@@ -54,7 +54,7 @@ bool ctfserver(void (*handler)(void *)) {
     return true;
 }
 
-bool rputs(sock rsock, char *fmt, ...){
+bool rprintf(sock rsock, char *fmt, ...){
     char msg[BUFSIZE];
     memset(msg, 0, BUFSIZE);
     va_list args;
@@ -90,8 +90,8 @@ bool send_flag(sock rsock, char *msg){
     char fBuf[BUFSIZE];
     FILE *fp = fopen("flag.txt", "r");
     if (!fp)
-        return rputs(rsock, "%s%s\n", msg, "No flag.txt");
+        return rprintf(rsock, "%s%s\n", msg, "No flag.txt");
     fgets(fBuf, BUFSIZE, fp);
     fclose(fp);
-    return rputs(rsock, "%s%s\n", msg, fBuf);
+    return rprintf(rsock, "%s%s\n", msg, fBuf);
 }
