@@ -1,7 +1,7 @@
 CTFServer
 =========
-Easily deploy ctf challenges that involve a client/server model.<br>
-Use on Linux.<br>
+<p>Easily deploy ctf challenges that involve a client/server model.</p>
+Use on Linux.
 
 How To
 ------
