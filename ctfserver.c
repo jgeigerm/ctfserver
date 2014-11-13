@@ -37,7 +37,7 @@ bool ctfserver(void (*handler)(sock)) {
         if ((rsock = accept(lsock, (sockaddr *)&rsin, &rsin_len)) != -1){
 #ifdef CTF_THREADS
             pthread_mutex_lock(&tmutex);
-            pthread_create(&pid, NULL, handler, (void *)&rsock);
+            pthread_create(&pid, NULL, &handler, (void *)&rsock);
             pthread_mutex_unlock(&tmutex);
 #else
             pid_t pid = fork();
@@ -90,8 +90,8 @@ bool send_flag(sock rsock, char *msg){
     char fBuf[BUFSIZE];
     FILE *fp = fopen("flag.txt", "r");
     if (!fp)
-        return rputs(rsock, "%s\n%s\n", msg, "No flag.txt");
-    fgets(fBuf, 15, fp);
+        return rputs(rsock, "%s%s\n", msg, "No flag.txt");
+    fgets(fBuf, BUFSIZE, fp);
     fclose(fp);
-    return rputs(rsock, "%s\n%s", msg, fBuf);
+    return rputs(rsock, "%s%s\n", msg, fBuf);
 }
