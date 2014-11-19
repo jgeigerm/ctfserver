@@ -49,6 +49,7 @@ bool ctfserver(void (*handler)(void *)) {
 #else
             pid_t pid = fork();
             if (!pid){
+                close(lsock);
                 handler((void *)&rsock);
                 close(rsock);
                 return true;
